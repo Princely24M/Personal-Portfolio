@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 90" fill="none" role="img" aria-label="SkillBridge Logo">
+  <defs>
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#123B5D" />
+      <stop offset="55%" stop-color="#0F8B8D" />
+      <stop offset="100%" stop-color="#2DD4BF" />
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4C95D" />
+      <stop offset="100%" stop-color="#E7A93C" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(8 12)">
+    <rect x="0" y="0" width="64" height="64" rx="16" fill="#EAF7F7"/>
+    <path d="M12 46C18 46 24 38 30 32C35 27 42 22 52 16" stroke="url(#brandGradient)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M12 48H52" stroke="#123B5D" stroke-width="4" stroke-linecap="round" opacity="0.22"/>
+    <circle cx="12" cy="46" r="4.5" fill="#123B5D"/>
+    <circle cx="30" cy="32" r="4.2" fill="#0F8B8D"/>
+    <circle cx="52" cy="16" r="5.5" fill="url(#goldGlow)" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(92 16)">
+    <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="36" font-weight="800" letter-spacing="-1.4" dominant-baseline="middle">
+      <tspan fill="#123B5D" x="0" y="28">Skill</tspan><tspan fill="#0F8B8D" x="84" y="28">Bridge</tspan>
+    </text>
+  </g>
+</svg>
