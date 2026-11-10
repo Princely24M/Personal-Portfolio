@@ -113,25 +113,27 @@ export function buildAssistantMessages(message: string) {
 }
 
 export async function invokePortfolioAssistant(message: string) {
-  const baseUrl = process.env.BUILT_IN_FORGE_API_URL?.replace(/\/+$/, "");
-  const apiKey = process.env.BUILT_IN_FORGE_API_KEY;
+  const forgeBaseUrl = process.env.BUILT_IN_FORGE_API_URL?.replace(/\/+$/, "");
+  const forgeKey = process.env.BUILT_IN_FORGE_API_KEY;
+  const useForge = Boolean(forgeBaseUrl && forgeKey);
 
-  if (!baseUrl || !apiKey) {
-    throw new Error("AI service is not configured");
-  }
+  // On Netlify, AI Gateway injects OpenAI-compatible credentials automatically.
+  const baseUrl = useForge
+    ? `${forgeBaseUrl}/v1`
+    : (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "");
+  const apiKey = useForge ? forgeKey : process.env.OPENAI_API_KEY;
 
-  const response = await fetch(`${baseUrl}/v1/chat/completions`, {
+  const response = await fetch(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      model: "gpt-5-mini",
-      messages: buildAssistantMessages(message),
-      max_tokens: 1200,
-      temperature: 0.2,
-    }),
+    body: JSON.stringify(
+      useForge
+        ? { model: "gpt-5-mini", messages: buildAssistantMessages(message), max_tokens: 1200, temperature: 0.2 }
+        : { model: "gpt-5-mini", messages: buildAssistantMessages(message), max_completion_tokens: 1200 },
+    ),
   });
 
   if (!response.ok) {
